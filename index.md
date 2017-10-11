@@ -17,10 +17,10 @@ Curious? The following command will start a standalone version of our server at
 {:.note}
 > Note: OAuth2 requires HTTP TLS encryption, so the standalone server will 
 > generate and sign its own certificate. Your browser will notify you of the 
-> untrusted nature of this certificate every time the procel
-ss is restarted.
+> untrusted nature of this certificate every time the process is restarted.
 
-### Tell me more?
+
+### Deployments
 
 What would you like to know?
 
@@ -31,4 +31,3 @@ github's [project tracker](https://github.com/kangaroo-server/kangaroo/projects)
 for larger bodies of work. To coordinate and ensure that your work is not 
 being duplicated, please reach out the the community in the [IRC Channel](http://webchat.freenode.net/?channels=kangaroo)
 channel.
-
