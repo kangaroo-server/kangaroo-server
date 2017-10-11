@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Deployment Models
+title: Deployments
 permalink: /deployment/
 ---
 
