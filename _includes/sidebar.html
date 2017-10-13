@@ -1,0 +1,11 @@
+{% assign paths = site.documentation | map: "title" %}
+<ul class="nav flex-column">
+    <li class="nav-item">
+        <a class="nav-link" href="/">Welcome</a>
+    </li>
+    {% for path in paths %}
+    <li class="nav-item">
+        <a class="nav-link" href="#{{ path }}">{{ path | escape }}</a>
+    </li>
+    {% endfor %}
+</ul>

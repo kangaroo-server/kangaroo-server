@@ -1,0 +1,46 @@
+@each $color, $value in $theme-colors {
+  @include bg-variant('.bg-#{$color}-light', lighten($value, 45%));
+}
+
+$header-height: 58px;
+$footer-height: 49px;
+
+header.navbar {
+  border-bottom: 2px solid theme-color("primary")
+}
+
+footer.navbar {
+  border-top: 2px solid theme-color("primary")
+}
+
+nav.sidebar {
+  padding-top:  $grid-gutter-width/2;
+  position: -webkit-sticky;
+  position: sticky;
+  top: $header-height;
+  z-index: 1000;
+  max-height: calc(100vh - #{$header-height});
+}
+
+h3[id] {
+  padding-top: $header-height;
+  margin-top: -$header-height;
+}
+
+main {
+  padding-top:  $grid-gutter-width/2;
+  position: relative;
+  top: $header-height;
+  padding-bottom: $footer-height;
+}
+
+@include media-breakpoint-down(sm) {
+  footer, nav.sidebar {
+    display: none;
+  }
+
+  main {
+    padding-bottom: 1rem;
+  }
+}
+

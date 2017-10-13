@@ -2,11 +2,5 @@
 # Only the main Sass file needs front matter (the dashes are enough)
 ---
 
-@import "minima";
+@import "theme";
 
-blockquote.note {
-  font-size: 14px;
-  border-left: none;
-  letter-spacing: inherit;
-  color: #999999
-}
