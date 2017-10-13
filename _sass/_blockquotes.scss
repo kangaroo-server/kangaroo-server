@@ -1,0 +1,14 @@
+
+blockquote {
+  &.note {
+    font-size: .9em;
+    background-color: $gray-200;
+    color: $gray-600;
+    font-style: italic;
+    padding: .8em 1em;
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+  }
+}

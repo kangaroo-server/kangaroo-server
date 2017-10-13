@@ -1,35 +1,28 @@
-# Welcome to Jekyll!
-#
-# This config file is meant for settings that affect your whole blog, values
-# which you are expected to set up once and rarely edit after that. If you find
-# yourself editing this file very often, consider using Jekyll's data files
-# feature for the data you need to update frequently.
-#
-# For technical reasons, this file is *NOT* reloaded automatically when you use
-# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
-
-# Site settings
-# These are used to personalize your new site. If you look in the HTML files,
-# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
-# You can create any custom variable you would like, and they will be accessible
-# in the templates via {{ site.myvariable }}.
-title: "Kangaroo"
+title: "Kangaroo: An OAuth2 Server"
 email: krotscheck@gmail.com
+
 description: >- # this means to ignore newlines until "baseurl:"
   Kangaroo is an open source, multi-tenant, OAuth2 Authorization server. It fully supports RFC 6749
   (The original OAuth2 Specification), and aspires to be a reference implementation thereof.
   We intend to expand the scope of this project to include other OAuth2 related RFC's.
+
 baseurl: "" # the subpath of your site, e.g. /blog
+
 url: "https://kangaroo-server.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+
 github_username:  kangaroo-server
+
 irc_channel: kangaroo
 
-# Build settings
 markdown: kramdown
-theme: minima
-plugins:
-  - jekyll-feed
+highlighter: rouge
 
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+collections:
+- documentation
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
 # to override the default setting.

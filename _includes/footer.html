@@ -1,25 +1,21 @@
-<footer class="site-footer">
-
-  <div class="wrapper">
-
-    <div class="footer-col-wrapper">
-      <div class="footer-col footer-col-1">
-        <ul class="contact-list">
-          <li>
-            <a href="https://github.com/{{ site.github_username }}" target="_blank">
-              <i class="fa fa-github"></i>
-              <span class="username">{{ site.github_username }}</span>
+<footer class="navbar navbar-expand fixed-bottom navbar-light bg-secondary-light">
+    <div class="container">
+        <form class="form-inline">
+            <a href="https://github.com/kangaroo-server"
+               class="btn btn-sm btn-link align-middle"
+               target="_blank">
+                <i class="fa fa-github"></i> kangaroo-server
             </a>
-          </li>
-          <li>
-            <a href="http://webchat.freenode.net/?channels={{site.irc_channel}}" target="_blank">
-              <i class="fa fa-hashtag"></i>
-              <span class="username">{{site.irc_channel}}</span>
+            <a href="https://webchat.freenode.net/?channels=kangaroo"
+               class="btn btn-sm btn-link align-middle"
+               target="_blank">
+                <i class="fa fa-hashtag"></i> kangaroo
             </a>
-          </li>
-        </ul>
-      </div>
+            <a href="https://kangaroo-server.slack.com"
+               class="btn btn-sm btn-link align-middle"
+               target="_blank">
+                <i class="fa fa-slack"></i> kangaroo-server
+            </a>
+        </form>
     </div>
-  </div>
-
 </footer>
