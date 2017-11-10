@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://kangaroo-server.github.io/basics/</loc>
+  </url>
+  
+  <url>
+    <loc>https://kangaroo-server.github.io/about/</loc>
+  </url>
+  
+  <url>
+    <loc>https://kangaroo-server.github.io/authz/</loc>
+  </url>
+  
+  <url>
+    <loc>https://kangaroo-server.github.io/categories/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://kangaroo-server.github.io/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://kangaroo-server.github.io/</loc>
+  </url>
+  
+  <url>
+    <loc>https://kangaroo-server.github.io/oauth2/</loc>
+  </url>
+  
+  <url>
+    <loc>https://kangaroo-server.github.io/tags/</loc>
+    <priority>0</priority>
+  </url>
+  
+</urlset>
