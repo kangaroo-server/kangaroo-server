@@ -21,6 +21,17 @@
     </item>
     
     <item>
+      <title>API: Authorization Management</title>
+      <link>https://kangaroo-server.github.io/authz/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://kangaroo-server.github.io/authz/</guid>
+      <description>This API allows you to configure, and manage, the applications and their authorization methods.
+Application Applications are our top-level data constructs, which collect resources, clients, authenticators, etc., which all share the same user database.
+ Root URI: /v1/application/ Scopes: kangaroo:application, kangaroo:application_admin Authorization: Required     Name Type Description     id Resource Identifier The unique identifier for this entity.   createdDate ISO-8601 Date String The time this entity was created (read-only).</description>
+    </item>
+    
+    <item>
       <title>About the Project</title>
       <link>https://kangaroo-server.github.io/about/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -29,15 +40,6 @@
       <description>Contributing We maintain an active list of issues, and use github&amp;rsquo;s project tracker for larger bodies of work. To coordinate and ensure that your work is not being duplicated, please reach out the the community in the IRC Channel.
 Philosophy The project adheres to several philosophies that impact our design decisions and architecture.
 Secure by Default In order to encourage a safe and secure internet, the project will default to the most secure configuration.</description>
-    </item>
-    
-    <item>
-      <title>Authorization API</title>
-      <link>https://kangaroo-server.github.io/authz/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://kangaroo-server.github.io/authz/</guid>
-      <description></description>
     </item>
     
     <item>

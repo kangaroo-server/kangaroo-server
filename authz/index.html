@@ -9,7 +9,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=10" />
-    <title>Authorization API - Kangaroo</title>
+    <title>API: Authorization Management - Kangaroo</title>
     <meta name="generator" content="Hugo 0.30.2" />
 
     
@@ -73,7 +73,7 @@
     
 
   </head>
-  <body class="palette-primary-blue-grey palette-accent-orange">
+  <body class="palette-primary-deep-orange palette-accent-blue">
 
 
 
@@ -99,7 +99,7 @@
     </div>
     <div class="stretch">
       <div class="title">
-        Authorization API
+        API: Authorization Management
       </div>
     </div>
 
@@ -297,9 +297,701 @@
 
 	<article class="article">
 		<div class="wrapper">
-			<h1>Authorization API </h1>
+			<h1>API: Authorization Management </h1>
 
 			
+
+<p>This API allows you to configure, and manage, the applications and their authorization
+methods.</p>
+
+<h2 id="application">Application</h2>
+
+<p>Applications are our top-level data constructs, which collect resources, clients, authenticators, etc.,
+which all share the same user database.</p>
+
+<ul>
+<li><strong>Root URI:</strong> /v1/application/</li>
+<li><strong>Scopes:</strong> kangaroo:application, kangaroo:application_admin</li>
+<li><strong>Authorization:</strong> Required</li>
+</ul>
+
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>id</td>
+<td>Resource Identifier</td>
+<td>The unique identifier for this entity.</td>
+</tr>
+
+<tr>
+<td>createdDate</td>
+<td>ISO-8601 Date String</td>
+<td>The time this entity was created (read-only).</td>
+</tr>
+
+<tr>
+<td>modifiedDate</td>
+<td>ISO-8601 Date String</td>
+<td>The time this entity was last modified (read-only).</td>
+</tr>
+
+<tr>
+<td>owner</td>
+<td>Resource Identifier</td>
+<td>The ID of the user who created this entity (read-only).</td>
+</tr>
+
+<tr>
+<td>defaultRole</td>
+<td>Resource Identifier</td>
+<td>The ID of the default user role, to which new users will be assigned.</td>
+</tr>
+
+<tr>
+<td>name</td>
+<td>String[3-255]</td>
+<td>A human-readable name for this application.</td>
+</tr>
+
+<tr>
+<td>description</td>
+<td>String[0-255]</td>
+<td>A human-readable description for this application.</td>
+</tr>
+</tbody>
+</table>
+
+<pre><code class="language-json">{
+    &quot;id&quot;: &quot;0bea995629fac30d64b215c099f211a2&quot;,
+    &quot;createdDate&quot;: &quot;2017-11-10T22:58:05Z&quot;,
+    &quot;modifiedDate&quot;: &quot;2017-11-10T22:58:05Z&quot;,
+    &quot;owner&quot;: &quot;3dfba52b24e1b70f0881942322771f32&quot;,
+    &quot;defaultRole&quot;: &quot;0c16fd7a62133a4b1c3034835b325256&quot;,
+    &quot;name&quot;: &quot;Kangaroo&quot;,
+    &quot;description&quot;: &quot;The kangaroo administration application.&quot;
+}
+</code></pre>
+
+<h2 id="role">Role</h2>
+
+<p>Roles are collections of scopes (permissions), to which a user may belong. A user who belongs to a role may request, and
+be granted, any scope within that role. Users may only be members of one role at a time.</p>
+
+<ul>
+<li><strong>Root URI:</strong> /v1/role/</li>
+<li><strong>Scopes:</strong> kangaroo:role, kangaroo:role_admin</li>
+<li><strong>Authorization:</strong> Required</li>
+</ul>
+
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>id</td>
+<td>Resource Identifier</td>
+<td>The unique identifier for this entity.</td>
+</tr>
+
+<tr>
+<td>createdDate</td>
+<td>ISO-8601 Date String</td>
+<td>The time this entity was created (read-only).</td>
+</tr>
+
+<tr>
+<td>modifiedDate</td>
+<td>ISO-8601 Date String</td>
+<td>The time this entity was last modified (read-only).</td>
+</tr>
+
+<tr>
+<td>application</td>
+<td>Resource Identifier</td>
+<td>The ID of the application to which this role belongs.</td>
+</tr>
+
+<tr>
+<td>name</td>
+<td>String[3-255]</td>
+<td>A human-readable name for this role.</td>
+</tr>
+</tbody>
+</table>
+
+<pre><code class="language-json">{
+    &quot;id&quot;:&quot;58c1561d80d3cbd776bab952d3d19ae4&quot;,
+    &quot;createdDate&quot;:&quot;2017-11-11T18:14:43Z&quot;,
+    &quot;modifiedDate&quot;:&quot;2017-11-11T18:14:43Z&quot;,
+    &quot;application&quot;:&quot;7d24c31aab1bbce750f29ea243783a27&quot;,
+    &quot;name&quot;:&quot;Role Name&quot;
+}
+</code></pre>
+
+<h2 id="authenticator">Authenticator</h2>
+
+<p>An authenticator describes a method of linking the Kangaroo Authz server to a remote IdP. Multiple
+authenticators may be added to each client.</p>
+
+<ul>
+<li><strong>Root URI:</strong> /v1/authenticator/</li>
+<li><strong>Scopes:</strong> kangaroo:authenticator, kangaroo:authenticator_admin</li>
+<li><strong>Authorization:</strong> Required</li>
+</ul>
+
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>id</td>
+<td>Resource Identifier</td>
+<td>The unique identifier for this entity.</td>
+</tr>
+
+<tr>
+<td>createdDate</td>
+<td>ISO-8601 Date String</td>
+<td>The time this entity was created (read-only).</td>
+</tr>
+
+<tr>
+<td>modifiedDate</td>
+<td>ISO-8601 Date String</td>
+<td>The time this entity was last modified (read-only).</td>
+</tr>
+
+<tr>
+<td>client</td>
+<td>Resource Identifier</td>
+<td>The ID of the client which uses this authenticator.</td>
+</tr>
+
+<tr>
+<td>type</td>
+<td>String[enum]</td>
+<td>The type of authenticator.</td>
+</tr>
+
+<tr>
+<td>configuration</td>
+<td>Map[string:string]</td>
+<td>A string/string map of configuration values.</td>
+</tr>
+</tbody>
+</table>
+
+<pre><code class="language-json">{
+    &quot;id&quot;: &quot;62eaab94de8d1d9c00ba28083411e216&quot;,
+    &quot;createdDate&quot;: &quot;2017-11-11T00:11:29Z&quot;,
+    &quot;modifiedDate&quot;: &quot;2017-11-11T00:11:29Z&quot;,
+    &quot;client&quot;: &quot;2d532c9f97ba9207e28ea06fe0d9f26e&quot;,
+    &quot;type&quot;: &quot;Facebook&quot;,
+    &quot;configuration&quot;: {
+        &quot;config_value_1&quot;: &quot;authenticator_specific_setting&quot;,
+        &quot;config_value_2&quot;: &quot;authenticator_specific_setting&quot;
+    }
+}
+</code></pre>
+
+<h2 id="client">Client</h2>
+
+<p>A client describes an application - such as a mobile client, a web application, a device,
+or some other user-facing interface - which needs to request auth tokens for the greater Application.
+For example: A game may have an iOS client, an Android client, or a web client.</p>
+
+<ul>
+<li><strong>Root URI:</strong> /v1/client/</li>
+<li><strong>Scopes:</strong> kangaroo:client, kangaroo:client_admin</li>
+<li><strong>Authorization:</strong> Required</li>
+</ul>
+
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>id</td>
+<td>Resource Identifier</td>
+<td>The unique identifier for this entity.</td>
+</tr>
+
+<tr>
+<td>createdDate</td>
+<td>ISO-8601 Date String</td>
+<td>The time this entity was created (read-only).</td>
+</tr>
+
+<tr>
+<td>modifiedDate</td>
+<td>ISO-8601 Date String</td>
+<td>The time this entity was last modified (read-only).</td>
+</tr>
+
+<tr>
+<td>application</td>
+<td>Resource Identifier</td>
+<td>The ID of the application to which this client belongs.</td>
+</tr>
+
+<tr>
+<td>name</td>
+<td>String[3-255]</td>
+<td>A human-readable name.</td>
+</tr>
+
+<tr>
+<td>type</td>
+<td>String[enum]</td>
+<td>The type of client.</td>
+</tr>
+
+<tr>
+<td>configuration</td>
+<td>Map[string:string]</td>
+<td>A string/string map of configuration values.</td>
+</tr>
+</tbody>
+</table>
+
+<pre><code class="language-json">{
+    &quot;id&quot;: &quot;2e338aef6f60bb9a98e115484bceb2ec&quot;,
+    &quot;createdDate&quot;: &quot;2017-11-11T00:11:41Z&quot;,
+    &quot;modifiedDate&quot;: &quot;2017-11-11T00:11:41Z&quot;,
+    &quot;application&quot;: &quot;100063b46f5a09834afcfaecef8bb79f&quot;,
+    &quot;name&quot;: &quot;Example Client&quot;,
+    &quot;type&quot;: &quot;AuthorizationGrant&quot;,
+    &quot;configuration&quot;:{
+        &quot;authorization_code_expires_in&quot;: 600,
+        &quot;access_token_expires_in&quot;: 600,
+        &quot;refresh_token_expires_in&quot;: 2592000
+    }
+}
+</code></pre>
+
+<h2 id="client-redirect">Client Redirect</h2>
+
+<p>A client redirect is one of the URI&rsquo;s permitted to be used in the OAuth2 authorization flow.
+All elements in the URI must be present in the client&rsquo;s request, though additional query parameters may be added.</p>
+
+<ul>
+<li><strong>Root URI:</strong> /v1/client/<client_id>/redirect/</li>
+<li><strong>Scopes:</strong> kangaroo:client, kangaroo:client_admin</li>
+<li><strong>Authorization:</strong> Required</li>
+</ul>
+
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>id</td>
+<td>Resource Identifier</td>
+<td>The unique identifier for this entity.</td>
+</tr>
+
+<tr>
+<td>createdDate</td>
+<td>ISO-8601 Date String</td>
+<td>The time this entity was created (read-only).</td>
+</tr>
+
+<tr>
+<td>modifiedDate</td>
+<td>ISO-8601 Date String</td>
+<td>The time this entity was last modified (read-only).</td>
+</tr>
+
+<tr>
+<td>uri</td>
+<td>String[URL]</td>
+<td>The fully-qualified URI to which redirects may be sent.</td>
+</tr>
+</tbody>
+</table>
+
+<pre><code class="language-json">{
+    &quot;id&quot;: &quot;29932edb564649f1fd849cf3b789f9c8&quot;,
+    &quot;createdDate&quot;: &quot;2017-11-11T00:11:33Z&quot;,
+    &quot;modifiedDate&quot;: &quot;2017-11-11T00:11:33Z&quot;,
+    &quot;uri&quot;: &quot;http://redirect.example.com/&quot;
+}
+</code></pre>
+
+<h2 id="client-referrer">Client Referrer</h2>
+
+<p>A client referrer manages Cross-Origin-Resource-Sharing (CORS) permissions for the OAuth2 and Aanagement API. If the
+kangaroo server lives on a separate origin host, you may make direct API requests from the client host by
+adding the host&rsquo;s URL as a valid referrer.</p>
+
+<ul>
+<li><strong>Root URI:</strong> /v1/client/<client_id>/referrer/</li>
+<li><strong>Scopes:</strong> kangaroo:client, kangaroo:client_admin</li>
+<li><strong>Authorization:</strong> Required</li>
+</ul>
+
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>id</td>
+<td>Resource Identifier</td>
+<td>The unique identifier for this entity.</td>
+</tr>
+
+<tr>
+<td>createdDate</td>
+<td>ISO-8601 Date String</td>
+<td>The time this entity was created (read-only).</td>
+</tr>
+
+<tr>
+<td>modifiedDate</td>
+<td>ISO-8601 Date String</td>
+<td>The time this entity was last modified (read-only).</td>
+</tr>
+
+<tr>
+<td>uri</td>
+<td>String[URL]</td>
+<td>The fully-qualified URI from which API requests may be made.</td>
+</tr>
+</tbody>
+</table>
+
+<pre><code class="language-json">{
+    &quot;id&quot;: &quot;3a8bc39a1d43cf3fd11b063debf57b4b&quot;,
+    &quot;createdDate&quot;: &quot;2017-11-11T00:11:33Z&quot;,
+    &quot;modifiedDate&quot;: &quot;2017-11-11T00:11:33Z&quot;,
+    &quot;uri&quot;: &quot;http://referrer.example.com/&quot;
+}
+</code></pre>
+
+<h2 id="token">Token</h2>
+
+<p>The database representation of an OAuth2 token.</p>
+
+<ul>
+<li><strong>Root URI:</strong> /v1/token/</li>
+<li><strong>Scopes:</strong> kangaroo:token, kangaroo:token_admin</li>
+<li><strong>Authorization:</strong> Required</li>
+</ul>
+
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>id</td>
+<td>Resource Identifier</td>
+<td>The unique identifier for this entity.</td>
+</tr>
+
+<tr>
+<td>createdDate</td>
+<td>ISO-8601 Date String</td>
+<td>The time this entity was created (read-only).</td>
+</tr>
+
+<tr>
+<td>modifiedDate</td>
+<td>ISO-8601 Date String</td>
+<td>The time this entity was last modified (read-only).</td>
+</tr>
+
+<tr>
+<td>identity</td>
+<td>Resource Identifier</td>
+<td>The ID of the user identity to which this token was issued.</td>
+</tr>
+
+<tr>
+<td>client</td>
+<td>Resource Identifier</td>
+<td>The ID of the client to which this token was issued.</td>
+</tr>
+
+<tr>
+<td>tokenType</td>
+<td>String[enum]</td>
+<td>The type of token.</td>
+</tr>
+
+<tr>
+<td>expiresIn</td>
+<td>Integer</td>
+<td>Seconds from createdDate when this token will expire.</td>
+</tr>
+</tbody>
+</table>
+
+<pre><code class="language-json">{
+    &quot;id&quot;: &quot;3b3c3d9fc670236be824bead26f859ab&quot;,
+    &quot;createdDate&quot;: &quot;2017-11-11T00:11:44Z&quot;,
+    &quot;modifiedDate&quot;: &quot;2017-11-11T00:11:44Z&quot;,
+    &quot;identity&quot;: &quot;7f7e275638cc1866002278104026ecb8&quot;,
+    &quot;client&quot;: &quot;7e1b29edf7f09c6e1bb663fda83c9d0a&quot;,
+    &quot;tokenType&quot;: &quot;Bearer&quot;,
+    &quot;expiresIn&quot;: 100
+}
+</code></pre>
+
+<h2 id="scope">Scope</h2>
+
+<p>A scope, or permission, available within an application. These may be explicitly requested for each token,
+and must be unique within an application.</p>
+
+<ul>
+<li><strong>Root URI:</strong> /v1/scope/</li>
+<li><strong>Scopes:</strong> kangaroo:scope, kangaroo:scope_admin</li>
+<li><strong>Authorization:</strong> Required</li>
+</ul>
+
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>id</td>
+<td>Resource Identifier</td>
+<td>The unique identifier for this entity.</td>
+</tr>
+
+<tr>
+<td>createdDate</td>
+<td>ISO-8601 Date String</td>
+<td>The time this entity was created (read-only).</td>
+</tr>
+
+<tr>
+<td>modifiedDate</td>
+<td>ISO-8601 Date String</td>
+<td>The time this entity was last modified (read-only).</td>
+</tr>
+
+<tr>
+<td>application</td>
+<td>Resource Identifier</td>
+<td>The ID of the application to which this scope belongs.</td>
+</tr>
+
+<tr>
+<td>name</td>
+<td>String[3-255]</td>
+<td>The token name, no spaces.</td>
+</tr>
+</tbody>
+</table>
+
+<pre><code class="language-json">{
+    &quot;id&quot;: &quot;7840f4cef92d5115dcc84af78e9a03e1&quot;,
+    &quot;createdDate&quot;: &quot;2017-11-11T00:11:44Z&quot;,
+    &quot;modifiedDate&quot;: &quot;2017-11-11T00:11:44Z&quot;,
+    &quot;application&quot;: &quot;2b45fce637228dcb16388f03839e550c&quot;,
+    &quot;name&quot;: &quot;permission:scope&quot;
+}
+
+</code></pre>
+
+<h2 id="user">User</h2>
+
+<p>A user is the parent for a collection of remote User identities. For instance, a user may have a facebook,
+linkedin, and google identity. Multiple Id&rsquo;s of each type are permitted.</p>
+
+<ul>
+<li><strong>Root URI:</strong> /v1/user/</li>
+<li><strong>Scopes:</strong> kangaroo:user, kangaroo:user_admin</li>
+<li><strong>Authorization:</strong> Required</li>
+</ul>
+
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>id</td>
+<td>Resource Identifier</td>
+<td>The unique identifier for this entity.</td>
+</tr>
+
+<tr>
+<td>createdDate</td>
+<td>ISO-8601 Date String</td>
+<td>The time this entity was created (read-only).</td>
+</tr>
+
+<tr>
+<td>modifiedDate</td>
+<td>ISO-8601 Date String</td>
+<td>The time this entity was last modified (read-only).</td>
+</tr>
+
+<tr>
+<td>application</td>
+<td>Resource Identifier</td>
+<td>The ID of the application to which this scope belongs.</td>
+</tr>
+
+<tr>
+<td>role</td>
+<td>Resource Identifier</td>
+<td>This user&rsquo;s role, from which it is granted permitted scopes.</td>
+</tr>
+</tbody>
+</table>
+
+<pre><code class="language-json">{
+    &quot;id&quot;: &quot;10be785d1481ef5095bd6af784a55286&quot;,
+    &quot;createdDate&quot;: &quot;2017-11-11T18:05:45Z&quot;,
+    &quot;modifiedDate&quot;: &quot;2017-11-11T18:05:45Z&quot;,
+    &quot;application&quot;: &quot;1d096bea5c66a7a1670c651883d2d935&quot;,
+    &quot;role&quot;: &quot;191e961fbf7420624c735183a218aee4&quot;
+}
+</code></pre>
+
+<h2 id="useridentity">UserIdentity</h2>
+
+<p>A UserIdentity is an explicit link between a kangaroo user and a third party identity provider. It contains
+the remote id, as well as any third party claims issued by that IdP. The &ldquo;Password&rdquo; identity type has special meaning:
+it only works with the Owner Credentials flow, and may only be written.</p>
+
+<ul>
+<li><strong>Root URI:</strong> /v1/identity/</li>
+<li><strong>Scopes:</strong> kangaroo:identity, kangaroo:identity_admin</li>
+<li><strong>Authorization:</strong> Required</li>
+</ul>
+
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>id</td>
+<td>Resource Identifier</td>
+<td>The unique identifier for this entity.</td>
+</tr>
+
+<tr>
+<td>createdDate</td>
+<td>ISO-8601 Date String</td>
+<td>The time this entity was created (read-only).</td>
+</tr>
+
+<tr>
+<td>modifiedDate</td>
+<td>ISO-8601 Date String</td>
+<td>The time this entity was last modified (read-only).</td>
+</tr>
+
+<tr>
+<td>user</td>
+<td>Resource Identifier</td>
+<td>The ID of the user to which this identity belongs.</td>
+</tr>
+
+<tr>
+<td>type</td>
+<td>String[enum]</td>
+<td>The identity type, correlates with authenticator type.</td>
+</tr>
+
+<tr>
+<td>remoteId</td>
+<td>String</td>
+<td>The unique identifier for this user for the remote system.</td>
+</tr>
+
+<tr>
+<td>password</td>
+<td>String</td>
+<td>The user&rsquo;s new password. (write-only)</td>
+</tr>
+
+<tr>
+<td>claims</td>
+<td>Map[string:string]</td>
+<td>A string/string map of remote IdP claims.</td>
+</tr>
+</tbody>
+</table>
+
+<pre><code class="language-json">{
+    &quot;id&quot;: &quot;41e142f3b93920220b79f058e00d000d&quot;,
+    &quot;createdDate&quot;: &quot;2017-11-11T18:07:09Z&quot;,
+    &quot;modifiedDate&quot;: &quot;2017-11-11T18:07:09Z&quot;,
+    &quot;user&quot;: &quot;32c2048510b7ec967cf86c37d3e37229&quot;,
+    &quot;type&quot;: &quot;Password&quot;,
+    &quot;remoteId&quot;: &quot;0148524924c91ad7794fe5880bb2aa10&quot;,
+    &quot;claims&quot;:{
+        &quot;idp&quot;: &quot;provided&quot;,
+        &quot;claims&quot;: &quot;list&quot;
+    }
+}
+</code></pre>
+
 
 			<aside class="copyright" role="note">
 				
@@ -317,7 +1009,7 @@
 <nav class="pagination" aria-label="Footer">
   <div class="previous">
   
-      <a href="https://kangaroo-server.github.io/about/" title="About the Project">
+      <a href="https://kangaroo-server.github.io/basics/" title="API Basics">
         <span class="direction">
           Previous
         </span>
@@ -327,7 +1019,7 @@
           </div>
           <div class="stretch">
             <div class="title">
-              About the Project
+              API Basics
             </div>
           </div>
         </div>
@@ -337,14 +1029,14 @@
 
   <div class="next">
   
-      <a href="https://kangaroo-server.github.io/" title="Kangaroo">
+      <a href="https://kangaroo-server.github.io/about/" title="About the Project">
         <span class="direction">
           Next
         </span>
         <div class="page">
           <div class="stretch">
             <div class="title">
-              Kangaroo
+              About the Project
             </div>
           </div>
           <div class="button button-next" role="button" aria-label="Next">

@@ -73,7 +73,7 @@
     
 
   </head>
-  <body class="palette-primary-blue-grey palette-accent-orange">
+  <body class="palette-primary-deep-orange palette-accent-blue">
 
 
 
@@ -321,6 +321,46 @@ and request patterns can be assumed to transfer to all resources.</p>
 
 <h2 id="authorization">Authorization</h2>
 
+<h2 id="error-responses">Error Responses</h2>
+
+<p>If an error is returned by the API, it will provide additional data
+about the failure in the response body, using the following data format.
+The intended audience for this data is software engineers and code. Please
+surface more user-friendly error messages via your own user interface.</p>
+
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>error</td>
+<td>String</td>
+<td>An error &lsquo;short code&rsquo;.</td>
+</tr>
+
+<tr>
+<td>error_description</td>
+<td>String</td>
+<td>A human readable error response, not localized.</td>
+</tr>
+</tbody>
+</table>
+
+<pre><code>HTTP/1.1 404 Not Found
+Content-Type: application/json
+
+{
+    &quot;error&quot;: &quot;not_found&quot;,
+    &quot;error_description&quot;: &quot;HTTP 404 Not Found&quot;
+}
+</code></pre>
+
 <h2 id="search-and-browse">Search and Browse</h2>
 
 <p>We make a distinction between &lsquo;browsing&rsquo; a resource and &lsquo;searching&rsquo; a resource. The former
@@ -430,14 +470,14 @@ X-Requested-By: Your Application Name
 
   <div class="next">
   
-      <a href="https://kangaroo-server.github.io/about/" title="About the Project">
+      <a href="https://kangaroo-server.github.io/authz/" title="API: Authorization Management">
         <span class="direction">
           Next
         </span>
         <div class="page">
           <div class="stretch">
             <div class="title">
-              About the Project
+              API: Authorization Management
             </div>
           </div>
           <div class="button button-next" role="button" aria-label="Next">
